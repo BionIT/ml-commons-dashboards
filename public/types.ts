@@ -7,11 +7,16 @@ import { History } from 'history';
 import { DataPublicPluginStart } from '../../../src/plugins/data/public';
 import { NavigationPublicPluginStart } from '../../../src/plugins/navigation/public';
 import { AppMountParameters, CoreStart } from '../../../src/core/public';
+import { DataSourceManagementPluginSetup } from '../../../src/plugins/data_source_management/public';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface MlCommonsPluginPluginSetup {}
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface MlCommonsPluginPluginStart {}
+
+export interface MlCommonsPluginPluginSetupDependencies {
+  dataSourceManagement?: DataSourceManagementPluginSetup;
+}
 
 export interface AppPluginStartDependencies {
   navigation: NavigationPublicPluginStart;
@@ -23,6 +28,7 @@ export interface MLServices extends CoreStart {
   navigation: NavigationPublicPluginStart;
   data: DataPublicPluginStart;
   history: History;
+  dataSourceManagement?: DataSourceManagementPluginSetup;
 }
 
 interface ColumnMeta {

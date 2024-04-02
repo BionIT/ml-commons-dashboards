@@ -14,10 +14,11 @@ import { APIProvider } from './apis/api_provider';
 import { OpenSearchDashboardsContextProvider } from '../../../src/plugins/opensearch_dashboards_react/public';
 
 export const renderApp = (
-  { element, history, appBasePath }: AppMountParameters,
+  { element, history, appBasePath, setHeaderActionMenu }: AppMountParameters,
   services: MLServices
 ) => {
   InnerHttpProvider.setHttp(services.http);
+  const DataSourceMenu = services.dataSourceManagement?.ui.getDataSourceMenu();
 
   ReactDOM.render(
     <Router history={history}>
@@ -34,6 +35,16 @@ export const renderApp = (
           />
         </services.i18n.Context>
       </OpenSearchDashboardsContextProvider>
+      {DataSourceMenu && (
+        <DataSourceMenu
+          componentType="DataSourceSelectable"
+          componentConfig={{
+            notifications: services.notifications,
+            savedObjects: services.savedObjects.client,
+          }}
+          setMenuMountPoint={setHeaderActionMenu}
+        />
+      )}
     </Router>,
     element
   );

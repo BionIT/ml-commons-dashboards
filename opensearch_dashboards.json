@@ -10,7 +10,8 @@
     "opensearchDashboardsReact",
     "opensearchDashboardsUtils",
     "dashboard",
-    "opensearchUiShared"
+    "opensearchUiShared",
+    "dataSourceManagement"
   ],
-  "optionalPlugins": []
+  "optionalPlugins": ["dataSource"]
 }
