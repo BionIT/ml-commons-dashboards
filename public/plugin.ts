@@ -17,7 +17,7 @@ export class MlCommonsPluginPlugin
   implements Plugin<MlCommonsPluginPluginSetup, MlCommonsPluginPluginStart> {
   public setup(
     core: CoreSetup<AppPluginStartDependencies, AppPluginStartDependencies>,
-    { dataSourceManagement }: MlCommonsPluginPluginSetupDependencies
+    { dataSource, dataSourceManagement }: MlCommonsPluginPluginSetupDependencies
   ): MlCommonsPluginPluginSetup {
     // Register an application into the side navigation menu
     core.application.register({
@@ -36,10 +36,11 @@ export class MlCommonsPluginPlugin
 
         const services: MLServices = {
           ...coreStart,
-          dataSourceManagement,
           data,
           navigation,
           history: params.history,
+          dataSource,
+          dataSourceManagement,
           setHeaderActionMenu: params.setHeaderActionMenu,
         };
         // Render the application

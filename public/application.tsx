@@ -18,7 +18,6 @@ export const renderApp = (
   services: MLServices
 ) => {
   InnerHttpProvider.setHttp(services.http);
-  const DataSourceMenu = services.dataSourceManagement?.ui.getDataSourceMenu();
 
   ReactDOM.render(
     <Router history={history}>
@@ -32,19 +31,13 @@ export const renderApp = (
             chrome={services.chrome}
             data={services.data}
             uiSettingsClient={services.uiSettings}
+            savedObjects={services.savedObjects}
+            setActionMenu={setHeaderActionMenu}
+            dataSource={services.dataSource}
+            dataSourceManagement={services.dataSourceManagement}
           />
         </services.i18n.Context>
       </OpenSearchDashboardsContextProvider>
-      {DataSourceMenu && (
-        <DataSourceMenu
-          componentType="DataSourceSelectable"
-          componentConfig={{
-            notifications: services.notifications,
-            savedObjects: services.savedObjects.client,
-          }}
-          setMenuMountPoint={setHeaderActionMenu}
-        />
-      )}
     </Router>,
     element
   );

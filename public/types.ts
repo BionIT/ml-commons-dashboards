@@ -8,6 +8,7 @@ import { DataPublicPluginStart } from '../../../src/plugins/data/public';
 import { NavigationPublicPluginStart } from '../../../src/plugins/navigation/public';
 import { AppMountParameters, CoreStart } from '../../../src/core/public';
 import { DataSourceManagementPluginSetup } from '../../../src/plugins/data_source_management/public';
+import { DataSourcePluginSetup } from '../../../src/plugins/data_source/public';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface MlCommonsPluginPluginSetup {}
@@ -15,6 +16,7 @@ export interface MlCommonsPluginPluginSetup {}
 export interface MlCommonsPluginPluginStart {}
 
 export interface MlCommonsPluginPluginSetupDependencies {
+  dataSource?: DataSourcePluginSetup;
   dataSourceManagement?: DataSourceManagementPluginSetup;
 }
 
@@ -23,12 +25,11 @@ export interface AppPluginStartDependencies {
   data: DataPublicPluginStart;
 }
 
-export interface MLServices extends CoreStart {
+export interface MLServices extends CoreStart, MlCommonsPluginPluginSetupDependencies {
   setHeaderActionMenu: AppMountParameters['setHeaderActionMenu'];
   navigation: NavigationPublicPluginStart;
   data: DataPublicPluginStart;
   history: History;
-  dataSourceManagement?: DataSourceManagementPluginSetup;
 }
 
 interface ColumnMeta {
